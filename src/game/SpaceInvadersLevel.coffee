@@ -31,4 +31,11 @@ class SpaceInvadersLevel extends Scene
     for invader in @invaders
       invader.y += du
 
+  keyDown: (key, keycode) =>
+    console.log key, keycode, "down"
+
+  keyUp: (key, keycode) =>
+    console.log key, keycode, "up"
+
+
 module.exports = SpaceInvadersLevel
