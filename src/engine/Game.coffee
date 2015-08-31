@@ -2,11 +2,11 @@ GameLoop = require "engine/GameLoop"
 Keyboard = require "engine/Keyboard"
 
 class Game
-  constructor: (container, fps=60) ->
+  constructor: (container, width, height, fps=60) ->
     @gameLoop = new GameLoop(@update,@draw,fps)
     @canvas = document.createElement("canvas")
-    @canvas.width = 500
-    @canvas.height = 500
+    @canvas.width = width
+    @canvas.height = height
     container.appendChild(@canvas)
     @context = @canvas.getContext("2d")
     @keyboard = new Keyboard()
