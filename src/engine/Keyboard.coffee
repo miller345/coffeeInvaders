@@ -6,14 +6,14 @@ class Keyboard
   startListening: (down, up, target = window.document) =>
     that = @
     target.addEventListener "keydown", (e) ->
-      e.preventDefault()
       key = e.keyCode
+      if (key is 32) or (key >= 37 and key <= 40) then e.preventDefault()
       if key not in that.keysDown #if not already pressed
         that.keysDown.push(key)
         down?(Keyboard.keys[key], key, e)
 
     target.addEventListener "keyup", (e) ->
-      e.preventDefault()
+      #e.preventDefault()
       key = e.keyCode
       index = that.keysDown.indexOf(key)
       if index > -1
