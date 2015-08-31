@@ -3,7 +3,7 @@ class Keyboard
 
   keysDown: []
 
-  startListening: (target = window.document, down, up) =>
+  startListening: (down, up, target = window.document) =>
     that = @
     target.addEventListener "keydown", (e) ->
       e.preventDefault()

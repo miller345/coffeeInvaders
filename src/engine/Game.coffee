@@ -10,7 +10,7 @@ class Game
     container.appendChild(@canvas)
     @context = @canvas.getContext("2d")
     @keyboard = new Keyboard()
-    @keyboard.startListening(window.document, @keyDown, @keyUp)
+    @keyboard.startListening(@keyDown, @keyUp)
   start: (scene) =>
     @currentScene = scene
     @gameLoop.start()
