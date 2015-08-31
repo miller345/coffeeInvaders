@@ -1,12 +1,16 @@
 Scene = require "engine/Scene"
 Invader = require "game/Invader"
 Mug = require "game/Mug"
+random = require "engine/random"
 
 class SpaceInvadersLevel extends Scene
 
   config:
     mugSize: 40
     mugSpeed: 3
+    fallSpeed: 5
+    fallFrequency: 100 #every x updates
+    fallChance: 0.1
     invaderSize: 20
     invaderCountX: 10
     invaderCountY: 5
@@ -19,6 +23,7 @@ class SpaceInvadersLevel extends Scene
     @invaders = []
     @addMug()
     @addInvaders()
+    @lastFall = 0 #last update that invader fell
 
   addMug: =>
     @mug = new Mug(210, 450, @config.mugSize)
@@ -36,13 +41,22 @@ class SpaceInvadersLevel extends Scene
         @addInvader spacing*x, spacing*y
 
   update: (u, du) =>
-    #for invader in @invaders
-    #  invader.y += du
     if @left and not @right
-      @mug.x -= 1 * @config.mugSpeed
+      @mug.x -= du * @config.mugSpeed
     else if @right and not @left
-      @mug.x += 1 * @config.mugSpeed
+      @mug.x += du * @config.mugSpeed
 
+    if (u - @lastFall) > @config.fallFrequency
+      shouldFall = true
+      @lastFall = u
+    #pick invaders to fall
+    indexToFall = random.between(0, @invaders.length)
+    for invader, index in @invaders
+      if shouldFall and (indexToFall is index)
+        invader.falling = true
+      #keep invader falling
+      if invader.falling
+        invader.y += du * @config.fallSpeed
 
   keyDown: (key, keycode) =>
     switch key
