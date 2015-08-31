@@ -20,9 +20,9 @@ class Game
     @currentScene?.draw?(@context,t,dt)
   stop: =>
     @gameLoop.stop()
-  keyDown: (key, keycode) =>
-    @currentScene?.keyDown?(key, keycode)
+  keyDown: (key, keycode, event) =>
+    @currentScene?.keyDown?(key, keycode, event)
   keyUp: (key, keycode) =>
-    @currentScene?.keyUp?(key, keycode)
+    @currentScene?.keyUp?(key, keycode, event)
 
 module.exports = Game

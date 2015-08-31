@@ -10,7 +10,7 @@ class Keyboard
       key = e.keyCode
       if key not in that.keysDown #if not already pressed
         that.keysDown.push(key)
-        down?(Keyboard.keys[key], key)
+        down?(Keyboard.keys[key], key, e)
 
     target.addEventListener "keyup", (e) ->
       e.preventDefault()
@@ -18,7 +18,7 @@ class Keyboard
       index = that.keysDown.indexOf(key)
       if index > -1
         that.keysDown.splice(index, 1);
-        up?(Keyboard.keys[key], key)
+        up?(Keyboard.keys[key], key, e)
 
 
   @keys:
