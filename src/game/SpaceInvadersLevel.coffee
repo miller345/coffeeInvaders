@@ -1,9 +1,11 @@
 Scene = require "engine/Scene"
 Invader = require "game/Invader"
+Mug = require "game/Mug"
 
 class SpaceInvadersLevel extends Scene
 
   config:
+    mugSize: 40
     invaderSize: 20
     invaderCountX: 10
     invaderCountY: 5
@@ -14,7 +16,12 @@ class SpaceInvadersLevel extends Scene
   constructor: ->
     super()
     @invaders = []
+    @addMug()
     @addInvaders()
+
+  addMug: =>
+    @mug = new Mug(100, 100, @config.mugSize)
+    @addComponent(@mug)
 
   addInvader: (x, y) =>
     invader = new Invader x, y, @config.invaderSize
