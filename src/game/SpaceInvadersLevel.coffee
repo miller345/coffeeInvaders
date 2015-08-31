@@ -6,6 +6,7 @@ class SpaceInvadersLevel extends Scene
 
   config:
     mugSize: 40
+    mugSpeed: 3
     invaderSize: 20
     invaderCountX: 10
     invaderCountY: 5
@@ -20,7 +21,7 @@ class SpaceInvadersLevel extends Scene
     @addInvaders()
 
   addMug: =>
-    @mug = new Mug(100, 100, @config.mugSize)
+    @mug = new Mug(210, 450, @config.mugSize)
     @addComponent(@mug)
 
   addInvader: (x, y) =>
@@ -35,14 +36,23 @@ class SpaceInvadersLevel extends Scene
         @addInvader spacing*x, spacing*y
 
   update: (u, du) =>
-    for invader in @invaders
-      invader.y += du
+    #for invader in @invaders
+    #  invader.y += du
+    if @left and not @right
+      @mug.x -= 1 * @config.mugSpeed
+    else if @right and not @left
+      @mug.x += 1 * @config.mugSpeed
+
 
   keyDown: (key, keycode) =>
-    console.log key, keycode, "down"
+    switch key
+      when "left" then @left = true
+      when "right" then @right = true
 
   keyUp: (key, keycode) =>
-    console.log key, keycode, "up"
+    switch key
+      when "left" then @left = false
+      when "right" then @right = false
 
 
 module.exports = SpaceInvadersLevel
